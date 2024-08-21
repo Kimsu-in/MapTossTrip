@@ -1,4 +1,4 @@
-# MapTossTrip
+### MapTossTrip
 
 MapTossTrip은 카카오맵 API를 사용하여 즉흥적으로 여행지를 탐색할 수 있는 React 애플리케이션입니다. 
 push 버튼을 누르면 지도에 랜덤하게 위치를 골라줍니다.
