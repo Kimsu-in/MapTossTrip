@@ -4,6 +4,13 @@
   display: flex;
 }
 
+.logo {
+  width: 80px;
+  height: 80px;
+  z-index: 10;
+  padding: 20px;
+}
+
 .floatButton {
   position: fixed !important;
   bottom: 50px;

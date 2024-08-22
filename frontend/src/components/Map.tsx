@@ -70,6 +70,7 @@ function Map() {
 
   return (
     <div id="map" className={styles.mapWrapper}>
+      <img src="/logo.png" alt="Logo" className={styles.logo} />
       <Button
         variant="contained"
         size="large"
