@@ -1,5 +1,6 @@
-import { MutableRefObject, useEffect, useRef } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import styles from "./Map.module.scss";
+import List from "./List";
 import { Button } from "@mui/material";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
@@ -10,6 +11,7 @@ declare global {
 }
 
 function Map() {
+  const [destination, setDestination] = useState("");
   const mapRef = useRef<HTMLElement | null>(null);
   const geocoder = new window.kakao.maps.services.Geocoder();
 
@@ -43,7 +45,7 @@ function Map() {
       (result: any, status: string) => {
         if (status === window.kakao.maps.services.Status.OK) {
           const address = result[0].address.address_name; // 변환된 한국 주소
-          console.log(`Random marker placed at: ${address}`);
+          setDestination(address);
         } else {
           // 변환 실패 시 마커를 지도에서 제거하고 다시 시도
           marker.setMap(null); // 마커를 지도에서 제거
@@ -54,26 +56,49 @@ function Map() {
   };
 
   // 버튼 클릭 시 랜덤 좌표에 마커 추가 및 주소 출력
-  const handleAddRandomMarker = () => {
+  const handleAddRandomMarker = async () => {
     if (!mapRef.current) return;
 
-    const randomLatLng = getRandomKoreaLatLng();
-    const marker = new window.kakao.maps.Marker({
-      position: randomLatLng,
-    });
+    let lastRandomLatLng = null;
+    let lastMarker = null;
 
-    marker.setMap(mapRef.current); // 마커를 지도에 추가
+    for (let i = 0; i < 20; i++) {
+      const randomLatLng = getRandomKoreaLatLng();
+      const marker = new window.kakao.maps.Marker({
+        position: randomLatLng,
+      });
 
-    // 마커가 찍힌 좌표의 주소를 콘솔에 출력, 변환 실패 시 마커 제거 및 재시도
-    getAddressFromCoords(randomLatLng, marker);
+      if (marker) {
+        marker.setMap(null);
+      }
+
+      marker.setMap(mapRef.current); // 마커를 지도에 추가
+
+      // Save the last randomLatLng and marker
+      lastRandomLatLng = randomLatLng;
+      lastMarker = marker;
+
+      // Wait for 0.3 seconds before showing the next marker
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Remove the marker unless it's the last one
+      if (i < 19) {
+        marker.setMap(null);
+      }
+    }
+
+    // After the loop, the last marker remains visible
+    if (lastRandomLatLng && lastMarker) {
+      getAddressFromCoords(lastRandomLatLng, lastMarker);
+    }
   };
 
   return (
     <div id="map" className={styles.mapWrapper}>
       <img src="/logo.png" alt="Logo" className={styles.logo} />
+      <List destination={destination} />
       <Button
         variant="contained"
-        size="large"
         className={styles.floatButton}
         onClick={handleAddRandomMarker}
       >

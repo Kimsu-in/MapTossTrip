@@ -1,0 +1,27 @@
+.wrapper {
+  z-index: 10;
+  display: flex;
+}
+
+.text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed !important;
+  padding: 10px;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-weight: 600 !important;
+  background-color: rgba(135, 190, 241, 0.781);
+}
+
+@media (max-width: 768px) {
+  .text {
+    min-width: 300px;
+    padding: 5px;
+    bottom: 20px;
+    font-size: 14px !important;
+  }
+}
