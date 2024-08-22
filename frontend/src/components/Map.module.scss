@@ -1,0 +1,13 @@
+.mapWrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.floatButton {
+  position: fixed !important;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
