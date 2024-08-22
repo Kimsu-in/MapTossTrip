@@ -78,16 +78,14 @@ function Map() {
       lastRandomLatLng = randomLatLng;
       lastMarker = marker;
 
-      // Wait for 0.3 seconds before showing the next marker
+      // 0.1초마다 실행
       await new Promise((resolve) => setTimeout(resolve, 100));
 
-      // Remove the marker unless it's the last one
+      // 마지막 마커만 남겨둠
       if (i < 19) {
         marker.setMap(null);
       }
     }
-
-    // After the loop, the last marker remains visible
     if (lastRandomLatLng && lastMarker) {
       getAddressFromCoords(lastRandomLatLng, lastMarker);
     }
