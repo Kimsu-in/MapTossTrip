@@ -8,3 +8,4 @@ push 버튼을 누르면 지도에 랜덤하게 위치를 골라줍니다.
 
 ![Screenshot from 2024-08-23 09-58-17](https://github.com/user-attachments/assets/f9b3aa85-354f-461d-ac9e-040aa416cb65)
 
+![Screenshot from 2024-08-23 09-59-34](https://github.com/user-attachments/assets/3f0f601a-b60f-40a0-b3a2-e295dee13423)
